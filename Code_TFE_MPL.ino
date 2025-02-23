@@ -1,3 +1,8 @@
+#include "RTClib.h" //librairie du rtc
+
+#include <Adafruit_GFX.h>    //Bilboiteque pour l'ecran
+#include <Adafruit_ILI9341.h>
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <radio.h>
@@ -5,6 +10,19 @@
 #include <I2S.h>  // Bibliothèque pour l'I²S
 
 // ----- Configuration des broches -----
+
+#define CLK 13  // Encodeur lineaire G
+#define DT 11
+
+#define CLK A3 // Encodeur lineaire D
+#define DT A4
+
+#define TFT_CS     10 //broche de l'ecran
+#define TFT_RST    6
+#define TFT_DC     12
+
+
+
 #define ADC_PIN_LEFT A0    // Broche pour l'entrée analogique gauche (RLOUD du RDA5807M)
 #define ADC_PIN_RIGHT A1   // Broche pour l'entrée analogique droite (GLOUD du RDA5807M)
 #define I2S_BCLK_PIN   1  // Broche BCLK de l'I²S tx
