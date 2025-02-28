@@ -1,8 +1,8 @@
-#include "RTClib.h"  //librairie du rtc
-RTC_PCF8523 rtc;
+//#include "RTClib.h"  //librairie du rtc
+//RTC_PCF8523 rtc;
 
-#include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
-#include <Adafruit_ILI9341.h>
+//#include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
+//#include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -15,8 +15,8 @@ RTC_PCF8523 rtc;
 #define CLK 13  // Encodeur lineaire G
 #define DT 11
 
-#define CLK A3  // Encodeur lineaire D
-#define DT A4
+#define CLK1 A3  // Encodeur lineaire D
+#define DT1 A4
 
 #define TFT_CS 10  //broche de l'ecran
 #define TFT_RST 6
@@ -33,7 +33,7 @@ RTC_PCF8523 rtc;
 // ----- Configuration fixe du RDA5807M -----
 #define FIX_BAND RADIO_BAND_FM  ///< Bande FM
 #define FIX_STATION 9290        ///< Station à 89.30 MHz
-#define FIX_VOLUME 10           ///< Niveau de volume
+#define FIX_VOLUME 15           ///< Niveau de volume
 
 RDA5807M radio;  // Instance pour gérer le RDA5807M
 
@@ -41,10 +41,14 @@ void setup() {
   // Initialisation série pour le débogage
   Serial.begin(9600);
 
-  if (!rtc.initialized() || rtc.lostPower()) {
-    Serial.println("RTC non initialisé, réglage de l'heure...");
-    rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
-  }
+    pinMode(CLK, INPUT);
+    pinMode(DT, INPUT);
+     pinMode(CLK1, INPUT);
+    pinMode(DT1, INPUT);
+  //if (!rtc.initialized() || rtc.lostPower()) {
+   // Serial.println("RTC non initialisé, réglage de l'heure...");
+   // rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
+//  }
 
   // Initialisation du module RDA5807M
   if (!radio.initWire(Wire)) {
@@ -75,22 +79,21 @@ void setup() {
 
 void loop() {
   
-  DateTime now = rtc.now();
+ // DateTime now = rtc.now();
 
-    Serial.print("Date: ");
-    Serial.print(now.year(), DEC);
-    Serial.print('/');
-    Serial.print(now.month(), DEC);
-    Serial.print('/');
-    Serial.print(now.day(), DEC);
-    Serial.print(" - Heure: ");
-    Serial.print(now.hour(), DEC);
-    Serial.print(':');
-    Serial.print(now.minute(), DEC);
-    Serial.print(':');
-    Serial.println(now.second(), DEC);
+  //  Serial.print("Date: ");
+  //  Serial.print(now.year(), DEC);
+  //  Serial.print('/');
+  //  Serial.print(now.month(), DEC);
+  //  Serial.print('/');
+  //  Serial.print(now.day(), DEC);
+  //  Serial.print(" - Heure: ");
+  //  Serial.print(now.hour(), DEC);
+  //  Serial.print(':');
+  //  Serial.print(':');
+  //  Serial.println(now.second(), DEC);
 
-    delay(1000); 
+  //  delay(1000); 
   
   
   
