@@ -1,8 +1,8 @@
-//#include "RTClib.h"  //librairie du rtc
-//RTC_PCF8523 rtc;
+#include <RTClib.h>  //librairie du rtc
+ RTC_PCF8523 rtc;
 
-//#include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
-//#include <Adafruit_ILI9341.h>
+ #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
+ #include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -32,15 +32,22 @@
 
 // ----- Configuration fixe du RDA5807M -----
 #define FIX_BAND RADIO_BAND_FM  ///< Bande FM
-#define FIX_STATION 8930        ///< Station à 89.30 MHz
+// #define FIX_STATION 8930        ///< Station à 89.30 MHz
 //#define FIX_VOLUME 10           ///< Niveau de volume
-#define MAX_VOLUME 25
+#define MAX_VOLUME 25      // fixer un volume max
+#define MIN_STATION 8930   // fixer une station min
+#define MAX_STATION 10500  // fixer une station max
+#define STATION_INITALE 9300
 
 RDA5807M radio;
 int dernierEtatCLK;
-int volume = 10;
-int etatComparateur= digitalRead(CLK);                 //etat initial de clk enregistré(varaible)
+int dernierEtatCLK1;
 
+int station_initiale = 9300;
+int volume = 20;
+
+int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(varaible)
+int etatComparateur1 = digitalRead(CLK1);
 void setup() {
   // Initialisation série pour le débogage
   Serial.begin(9600);
@@ -49,10 +56,10 @@ void setup() {
   pinMode(DT, INPUT);
   pinMode(CLK1, INPUT);
   pinMode(DT1, INPUT);
-  //if (!rtc.initialized() || rtc.lostPower()) {
-  // Serial.println("RTC non initialisé, réglage de l'heure...");
-  // rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
-  //  }
+   if (!rtc.initialized() || rtc.lostPower()) {
+     Serial.println("RTC non initialisé, réglage de l'heure...");
+     rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
+   }
 
   // Initialisation du module RDA5807M
   if (!radio.initWire(Wire)) {
@@ -64,7 +71,7 @@ void setup() {
   // Configuration de la radio
   radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
   radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
-  radio.setBandFrequency(FIX_BAND, FIX_STATION);       // Fixer la station
+  radio.setBandFrequency(FIX_BAND, STATION_INITALE);   // Fixer la station
   radio.setVolume(volume);
   radio.setMono(false);
   radio.setMute(false);
@@ -81,39 +88,50 @@ void setup() {
   Serial.println("I²S initialisé.");
 
   dernierEtatCLK = digitalRead(CLK);
+  dernierEtatCLK1 = digitalRead(CLK1);
 }
 
 void loop() {
 
-  int etatComparateur= digitalRead(CLK);                 //etat initial de clk enregistré(varaible)
+  int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(variable)
 
-  if (etatComparateur != dernierEtatCLK) {            //verifie le sens horaire,anti grace a dt
+  if (etatComparateur != dernierEtatCLK) {  //verifie le sens horaire,anti grace a dt
     if (digitalRead(DT) != etatComparateur) {
-      if (volume < MAX_VOLUME) volume++;            //grace au sens de rotation on ajuste le volume 
+      if (volume < MAX_VOLUME) volume++;  //grace au sens de rotation on ajuste le volume
     } else {
-      if (volume > 0) volume--;  
+      if (volume > 0) volume--;
     }
 
-    radio.setVolume(volume);                    //  le volume est appliquer a la radio
+    radio.setVolume(volume);  //  le volume est appliquer a la radio
   }
 
   dernierEtatCLK = etatComparateur;  // mise a jour
 
-  // DateTime now = rtc.now();
+ int etatComparateur = digitalRead(CLK);
 
-  //  Serial.print("Date: ");
-  //  Serial.print(now.year(), DEC);
-  //  Serial.print('/');
-  //  Serial.print(now.month(), DEC);
-  //  Serial.print('/');
-  //  Serial.print(now.day(), DEC);
-  //  Serial.print(" - Heure: ");
-  //  Serial.print(now.hour(), DEC);
-  //  Serial.print(':');
-  //  Serial.print(':');
-  //  Serial.println(now.second(), DEC);
+ if (etatComparateur != dernierEtatCLK) {
+   if (digitalRead(DT) != etatComparateur) {
+      if( )
 
-  //  delay(1000);
+
+
+
+
+  DateTime now = rtc.now();
+
+  Serial.print("Date: ");
+  Serial.print(now.year(), DEC);
+  Serial.print('/');
+  Serial.print(now.month(), DEC);
+  Serial.print('/');
+  Serial.print(now.day(), DEC);
+  Serial.print(" - Heure: ");
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(':');
+  Serial.println(now.second(), DEC);
+
+  delay(1000);
 
 
 
