@@ -1,8 +1,8 @@
-#include <RTClib.h>  //librairie du rtc
- RTC_PCF8523 rtc;
+// #include <RTClib.h>  //librairie du rtc
+// RTC_PCF8523 rtc;
 
- #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
- #include <Adafruit_ILI9341.h>
+// #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
+// #include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -37,14 +37,15 @@
 #define MAX_VOLUME 25      // fixer un volume max
 #define MIN_STATION 8930   // fixer une station min
 #define MAX_STATION 10500  // fixer une station max
-#define STATION_INITALE 9300
+#define STATION_INITIALE 9300
 
 RDA5807M radio;
 int dernierEtatCLK;
 int dernierEtatCLK1;
 
-int station_initiale = 9300;
-int volume = 20;
+int stationActuelle = STATION_INITIALE;
+int volume = 15;
+
 
 int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(varaible)
 int etatComparateur1 = digitalRead(CLK1);
@@ -56,10 +57,10 @@ void setup() {
   pinMode(DT, INPUT);
   pinMode(CLK1, INPUT);
   pinMode(DT1, INPUT);
-   if (!rtc.initialized() || rtc.lostPower()) {
-     Serial.println("RTC non initialisé, réglage de l'heure...");
-     rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
-   }
+  // if (!rtc.initialized() || rtc.lostPower()) {
+  //   Serial.println("RTC non initialisé, réglage de l'heure...");
+  //   rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
+  // }
 
   // Initialisation du module RDA5807M
   if (!radio.initWire(Wire)) {
@@ -71,7 +72,7 @@ void setup() {
   // Configuration de la radio
   radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
   radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
-  radio.setBandFrequency(FIX_BAND, STATION_INITALE);   // Fixer la station
+  radio.setBandFrequency(FIX_BAND,STATION_INITIALE);   // Fixer la station
   radio.setVolume(volume);
   radio.setMono(false);
   radio.setMute(false);
@@ -107,31 +108,41 @@ void loop() {
 
   dernierEtatCLK = etatComparateur;  // mise a jour
 
- int etatComparateur = digitalRead(CLK);
+ 
+ int etatComparateur1 = digitalRead(CLK1);
+  
+  if (etatComparateur1 != dernierEtatCLK1) {  
+    if (digitalRead(DT1) != etatComparateur1) {  
+      if (stationActuelle < MAX_STATION) stationActuelle += 10;  //augmente de station tant que elle ne depasse pas le max
+      else stationActuelle = MIN_STATION;                       // si elle depase elle reveint a la station min
+    } else {  
+      if (stationActuelle > MIN_STATION) stationActuelle -= 10;   // memme chose diminue jusqu'a station min 
+      else stationActuelle = MAX_STATION;                             // memme chose si elle depase la sation min et reviens a station max
+    } 
+    
+    radio.setBandFrequency(RADIO_BAND_FM, stationActuelle);
+    
+    Serial.print("Nouvelle station: ");
+    Serial.println(stationActuelle / 100.0, 1);
+  }
+  
+  dernierEtatCLK1 = etatComparateur1;
 
- if (etatComparateur != dernierEtatCLK) {
-   if (digitalRead(DT) != etatComparateur) {
-      if( )
+  // DateTime now = rtc.now();
 
+  // Serial.print("Date: ");
+  // Serial.print(now.year(), DEC);
+  // Serial.print('/');
+  // Serial.print(now.month(), DEC);
+  // Serial.print('/');
+  // Serial.print(now.day(), DEC);
+  // Serial.print(" - Heure: ");
+  // Serial.print(now.hour(), DEC);
+  // Serial.print(':');
+  // Serial.print(':');
+  // Serial.println(now.second(), DEC);
 
-
-
-
-  DateTime now = rtc.now();
-
-  Serial.print("Date: ");
-  Serial.print(now.year(), DEC);
-  Serial.print('/');
-  Serial.print(now.month(), DEC);
-  Serial.print('/');
-  Serial.print(now.day(), DEC);
-  Serial.print(" - Heure: ");
-  Serial.print(now.hour(), DEC);
-  Serial.print(':');
-  Serial.print(':');
-  Serial.println(now.second(), DEC);
-
-  delay(1000);
+  // delay(1000);
 
 
 
