@@ -1,14 +1,11 @@
-// #include <RTClib.h>  //librairie du rtc
-// RTC_PCF8523 rtc;
-
-// #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
+//  #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
 // #include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
 #include <radio.h>
 #include <RDA5807M.h>
-#include <I2S.h>  // Bibliothèque pour l'I²S
+#include <I2S.h>
 
 // ----- Configuration des broches -----
 
@@ -22,8 +19,6 @@
 #define TFT_RST 6
 #define TFT_DC 12
 
-
-
 #define ADC_PIN_LEFT A0   // Broche pour l'entrée analogique gauche (RLOUD du RDA5807M)
 #define ADC_PIN_RIGHT A1  // Broche pour l'entrée analogique droite (GLOUD du RDA5807M)
 #define I2S_BCLK_PIN 1    // Broche BCLK de l'I²S tx
@@ -32,35 +27,29 @@
 
 // ----- Configuration fixe du RDA5807M -----
 #define FIX_BAND RADIO_BAND_FM  ///< Bande FM
-// #define FIX_STATION 8930        ///< Station à 89.30 MHz
-//#define FIX_VOLUME 10           ///< Niveau de volume
-#define MAX_VOLUME 25      // fixer un volume max
-#define MIN_STATION 8930   // fixer une station min
-#define MAX_STATION 10500  // fixer une station max
-#define STATION_INITIALE 9300
+#define MAX_VOLUME 25           // fixer un volume max
+#define MIN_STATION 8930        // fixer une station min
+#define MAX_STATION 10500       // fixer une station max
+#define STATION_INITIALE 9300   // fixer une station initiale
 
 RDA5807M radio;
 int dernierEtatCLK;
 int dernierEtatCLK1;
 
 int stationActuelle = STATION_INITIALE;
-int volume = 15;
-
+int volume = 12;
 
 int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(varaible)
 int etatComparateur1 = digitalRead(CLK1);
+
 void setup() {
-  // Initialisation série pour le débogage
+
   Serial.begin(9600);
 
   pinMode(CLK, INPUT);
   pinMode(DT, INPUT);
   pinMode(CLK1, INPUT);
   pinMode(DT1, INPUT);
-  // if (!rtc.initialized() || rtc.lostPower()) {
-  //   Serial.println("RTC non initialisé, réglage de l'heure...");
-  //   rtc.adjust(DateTime(2025, 2, 23, 18, 30, 0));  // Régle l'horloge à 23 février 2025,18h30
-  // }
 
   // Initialisation du module RDA5807M
   if (!radio.initWire(Wire)) {
@@ -72,9 +61,9 @@ void setup() {
   // Configuration de la radio
   radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
   radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
-  radio.setBandFrequency(FIX_BAND,STATION_INITIALE);   // Fixer la station
+  radio.setBandFrequency(FIX_BAND, STATION_INITIALE);  // Fixer la station
   radio.setVolume(volume);
-  radio.setMono(false);
+  radio.setMono(true);
   radio.setMute(false);
 
   Serial.println("RDA5807M configuré.");
@@ -95,7 +84,6 @@ void setup() {
 void loop() {
 
   int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(variable)
-
   if (etatComparateur != dernierEtatCLK) {  //verifie le sens horaire,anti grace a dt
     if (digitalRead(DT) != etatComparateur) {
       if (volume < MAX_VOLUME) volume++;  //grace au sens de rotation on ajuste le volume
@@ -104,47 +92,31 @@ void loop() {
     }
 
     radio.setVolume(volume);  //  le volume est appliquer a la radio
+    Serial.print("Voulume actuelle: ");
+    Serial.println(volume);
   }
-
   dernierEtatCLK = etatComparateur;  // mise a jour
 
- 
- int etatComparateur1 = digitalRead(CLK1);
-  
-  if (etatComparateur1 != dernierEtatCLK1) {  
-    if (digitalRead(DT1) != etatComparateur1) {  
+
+  int etatComparateur1 = digitalRead(CLK1);
+
+  if (etatComparateur1 != dernierEtatCLK1) {
+    if (digitalRead(DT1) != etatComparateur1) {
       if (stationActuelle < MAX_STATION) stationActuelle += 10;  //augmente de station tant que elle ne depasse pas le max
-      else stationActuelle = MIN_STATION;                       // si elle depase elle reveint a la station min
-    } else {  
-      if (stationActuelle > MIN_STATION) stationActuelle -= 10;   // memme chose diminue jusqu'a station min 
-      else stationActuelle = MAX_STATION;                             // memme chose si elle depase la sation min et reviens a station max
-    } 
-    
+      else stationActuelle = MIN_STATION;                        // si elle depase elle reveint a la station min
+    } else {
+      if (stationActuelle > MIN_STATION) stationActuelle -= 10;  // memme chose diminue jusqu'a station min
+      else stationActuelle = MAX_STATION;                        // memme chose si elle depase la sation min et reviens a station max
+    }
+
     radio.setBandFrequency(RADIO_BAND_FM, stationActuelle);
-    
+
     Serial.print("Nouvelle station: ");
     Serial.println(stationActuelle / 100.0, 1);
   }
-  
   dernierEtatCLK1 = etatComparateur1;
 
-  // DateTime now = rtc.now();
-
-  // Serial.print("Date: ");
-  // Serial.print(now.year(), DEC);
-  // Serial.print('/');
-  // Serial.print(now.month(), DEC);
-  // Serial.print('/');
-  // Serial.print(now.day(), DEC);
-  // Serial.print(" - Heure: ");
-  // Serial.print(now.hour(), DEC);
-  // Serial.print(':');
-  // Serial.print(':');
-  // Serial.println(now.second(), DEC);
-
-  // delay(1000);
-
-
+/////////////////////////////////////////////////////////////////////////////////////
 
   // Lecture du signal analogique sur les broches ADC_PIN_LEFT (RLOUD) et ADC_PIN_RIGHT (GLOUD)
   int adcValueLeft = analogRead(ADC_PIN_LEFT);
@@ -160,27 +132,4 @@ void loop() {
 
   // Optionnel : ajout d'une pause pour respecter le débit d'échantillonnage
   delayMicroseconds(22);  // Correspond à 44.1 kHz (1/44100 = ~22 µs)
-
-  // Débogage périodique (toutes les 3 secondes)
-  static unsigned long lastDebug = 0;
-  if (millis() - lastDebug > 3000) {
-    char freq[12];
-    radio.formatFrequency(freq, sizeof(freq));
-    Serial.print("Station: ");
-    Serial.println(freq);
-
-    Serial.print("Radio Info: ");
-    radio.debugRadioInfo();
-
-    Serial.print("Audio Info: ");
-    radio.debugAudioInfo();
-
-    Serial.print("Left Channel ADC: ");
-    Serial.println(adcValueLeft);
-
-    Serial.print("Right Channel ADC: ");
-    Serial.println(adcValueRight);
-
-    lastDebug = millis();
-  }
 }
