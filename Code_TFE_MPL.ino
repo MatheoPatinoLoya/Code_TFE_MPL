@@ -1,24 +1,16 @@
-//  #include <Adafruit_GFX.h>  //Bilboiteque pour l'ecran
-// #include <Adafruit_ILI9341.h>
-
+#include <I2S.h>
 #include <Arduino.h>
 #include <Wire.h>
 #include <radio.h>
 #include <RDA5807M.h>
-#include <I2S.h>
-
 // ----- Configuration des broches -----
-
 #define CLK 13  // Encodeur lineaire G
 #define DT 11
-
 #define CLK1 A3  // Encodeur lineaire D
 #define DT1 A4
-
 #define TFT_CS 10  //broche de l'ecran
 #define TFT_RST 6
 #define TFT_DC 12
-
 #define ADC_PIN_LEFT A0   // Broche pour l'entrée analogique gauche (RLOUD du RDA5807M)
 #define ADC_PIN_RIGHT A1  // Broche pour l'entrée analogique droite (GLOUD du RDA5807M)
 #define I2S_BCLK_PIN 1    // Broche BCLK de l'I²S tx
@@ -33,57 +25,12 @@
 #define STATION_INITIALE 9300   // fixer une station initiale
 
 RDA5807M radio;
-int dernierEtatCLK;
-int dernierEtatCLK1;
-
+int dernierEtatCLK, dernierEtatCLK1;
 int stationActuelle = STATION_INITIALE;
 int volume = 12;
 
-int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(varaible)
-int etatComparateur1 = digitalRead(CLK1);
-
-void setup() {
-
-  Serial.begin(9600);
-
-  pinMode(CLK, INPUT);
-  pinMode(DT, INPUT);
-  pinMode(CLK1, INPUT);
-  pinMode(DT1, INPUT);
-
-  // Initialisation du module RDA5807M
-  if (!radio.initWire(Wire)) {
-    Serial.println("Erreur : module radio non détecté !");
-    while (1)
-      ;
-  }
-
-  // Configuration de la radio
-  radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
-  radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
-  radio.setBandFrequency(FIX_BAND, STATION_INITIALE);  // Fixer la station
-  radio.setVolume(volume);
-  radio.setMono(true);
-  radio.setMute(false);
-
-  Serial.println("RDA5807M configuré.");
-
-  // Initialisation de l'I²S
-  if (!I2S.begin(I2S_PHILIPS_MODE, 44100, 16)) {  // Mode Philips, 44.1 kHz, 16 bits44100
-    Serial.println("Erreur : impossible d'initialiser l'I²S.");
-    while (1)
-      ;
-  }
-
-  Serial.println("I²S initialisé.");
-
-  dernierEtatCLK = digitalRead(CLK);
-  dernierEtatCLK1 = digitalRead(CLK1);
-}
-
-void loop() {
-
-  int etatComparateur = digitalRead(CLK);  //etat initial de clk enregistré(variable)
+void Volume() {
+  int etatComparateur = digitalRead(CLK);   //etat initial de clk enregistré(variable)
   if (etatComparateur != dernierEtatCLK) {  //verifie le sens horaire,anti grace a dt
     if (digitalRead(DT) != etatComparateur) {
       if (volume < MAX_VOLUME) volume++;  //grace au sens de rotation on ajuste le volume
@@ -92,12 +39,14 @@ void loop() {
     }
 
     radio.setVolume(volume);  //  le volume est appliquer a la radio
+
     Serial.print("Voulume actuelle: ");
     Serial.println(volume);
   }
   dernierEtatCLK = etatComparateur;  // mise a jour
+}
 
-
+void Station() {
   int etatComparateur1 = digitalRead(CLK1);
 
   if (etatComparateur1 != dernierEtatCLK1) {
@@ -115,21 +64,56 @@ void loop() {
     Serial.println(stationActuelle / 100.0, 1);
   }
   dernierEtatCLK1 = etatComparateur1;
+}
 
-/////////////////////////////////////////////////////////////////////////////////////
+void Audio() {
 
-  // Lecture du signal analogique sur les broches ADC_PIN_LEFT (RLOUD) et ADC_PIN_RIGHT (GLOUD)
-  int adcValueLeft = analogRead(ADC_PIN_LEFT);
-  int adcValueRight = analogRead(ADC_PIN_RIGHT);
+  int16_t audioSampleLeft = (analogRead(ADC_PIN_LEFT) - 512) * 64;
+  int16_t audioSampleRight = (analogRead(ADC_PIN_RIGHT) - 512) * 64;
 
-  // Normalisation des valeurs ADC pour correspondre au format audio 16 bits
-  int16_t audioSampleLeft = (adcValueLeft - 512) * 64;    // Ajustement de l'amplitude pour le canal gauche 64
-  int16_t audioSampleRight = (adcValueRight - 512) * 64;  // Ajustement de l'amplitude pour le canal droit
-
-  // Envoi des deux canaux au MAX98357 via I²S
   I2S.write(audioSampleLeft);   // Envoi du canal gauche
   I2S.write(audioSampleRight);  // Envoi du canal droit
+                                                            
+  delayMicroseconds(22);  // respecter le débit d'échantillonnage 44.1 kHz (1/44100 = ~22 µs)
 
-  // Optionnel : ajout d'une pause pour respecter le débit d'échantillonnage
-  delayMicroseconds(22);  // Correspond à 44.1 kHz (1/44100 = ~22 µs)
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(CLK, INPUT);
+  pinMode(DT, INPUT);
+  pinMode(CLK1, INPUT);
+  pinMode(DT1, INPUT);
+
+  if (!radio.initWire(Wire)) {  // Initialisation du module RDA5807M
+    Serial.println("Erreur : module radio non détecté !");
+    while (1)
+      ;
+  }
+
+  // Configuration de la radio
+  radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
+  radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
+  radio.setBandFrequency(FIX_BAND, STATION_INITIALE);  // Fixer la station
+  radio.setVolume(volume);
+  radio.setMono(true);
+  radio.setMute(false);
+  Serial.println("RDA5807M configuré.");
+
+  if (!I2S.begin(I2S_PHILIPS_MODE, 44100, 16)) {                   // Initialisation de l'I²S mode Philips, 44.1 kHz, 16 bits44100
+    Serial.println("Erreur : impossible d'initialiser l'I²S.");  
+    while (1)
+      ;
+  }
+
+  Serial.println("I²S initialisé.");
+  dernierEtatCLK = digitalRead(CLK);
+  dernierEtatCLK1 = digitalRead(CLK1);
+}
+
+void loop() {
+  Volume();
+  Station();
+  Audio();
 }
