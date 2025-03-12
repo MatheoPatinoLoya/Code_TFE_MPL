@@ -14,7 +14,6 @@ void setup() {
       ;
   }
 
-  // Configuration de la radio
   radio.setup(RADIO_FMSPACING, RADIO_FMSPACING_100);   // Espacement pour l'Europe
   radio.setup(RADIO_DEEMPHASIS, RADIO_DEEMPHASIS_50);  // Déaccentuation pour l'Europe
   radio.setBandFrequency(FIX_BAND, STATION_INITIALE);  // Fixer la station

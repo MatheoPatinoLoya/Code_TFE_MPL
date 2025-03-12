@@ -16,8 +16,7 @@ void Volume(void) {
             if (volume > 0) volume--;
         }
         radio.setVolume(volume);
-        Serial.print("Volume actuel: ");
-        Serial.println(volume);
+        afficherVolume(volume);
     }
     dernierEtatCLK = etatComparateur;
 }
@@ -32,8 +31,7 @@ void Station(void) {
             stationActuelle = (stationActuelle > MIN_STATION) ? stationActuelle - 10 : MAX_STATION;
         }
         radio.setBandFrequency(FIX_BAND, stationActuelle);
-        Serial.print("Nouvelle station: ");
-        Serial.println(stationActuelle / 100.0, 1);
+         afficherStation();
     }
     dernierEtatCLK1 = etatComparateur1;
 }
@@ -46,3 +44,15 @@ void Audio(void) {
     I2S.write(audioSampleRight);
     delayMicroseconds(22);
 }
+////////////////////////////////////////////////////////////////
+void afficherVolume(int vol) {
+    Serial.print("Volume actuel : ");
+    Serial.println(vol);
+}
+
+int afficherStation() {
+    Serial.print("Nouvelle station : ");
+    Serial.println(stationActuelle / 100.0, 1);  
+    return stationActuelle;  
+}
+///////////////////////////////////////////////////////////////:

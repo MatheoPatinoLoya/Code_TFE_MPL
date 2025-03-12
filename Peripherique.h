@@ -32,5 +32,7 @@ extern int volume;
 void Volume(void);
 void Station(void);
 void Audio(void);
-
-
+//////////////////////////////
+void afficherVolume(int vol);  
+int afficherStation(void);     
+////////////////////////////////
