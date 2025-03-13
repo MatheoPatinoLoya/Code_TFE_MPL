@@ -5,7 +5,6 @@
 #include <RDA5807M.h>
 #include <I2S.h>
 
-
 #define CLK 13  
 #define DT 11
 #define CLK1 A3  
@@ -32,7 +31,9 @@ extern int volume;
 void Volume(void);
 void Station(void);
 void Audio(void);
-//////////////////////////////
+////////////////////////////////
 void afficherVolume(int vol);  
 int afficherStation(void);     
+bool initi_radio(bool mono,bool mute ) ;
+void Pin_Mode(void);
 ////////////////////////////////
