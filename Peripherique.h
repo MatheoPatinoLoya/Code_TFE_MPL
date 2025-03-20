@@ -1,3 +1,4 @@
+//#include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -36,4 +37,5 @@ void afficherVolume(int vol);
 int afficherStation(void);     
 bool initi_radio(bool mono,bool mute ) ;
 void Pin_Mode(void);
+void Lire_CLK(void);
 ////////////////////////////////
