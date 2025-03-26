@@ -3,11 +3,15 @@
 
 INTRODUCTION
 
-Dans le cadre de mon TFE de fin d'année, mon projet sera de mettre en œuvre mon radio-reveil à l'aide des connaissances acquis au fil des années à l'Inraci. 
+Dans le cadre de mon TFE de fin d'année, mon projet consiste à concevoir un radio-réveil en appliquant les connaissances acquises au fil des années à l'Inraci.
 
-Mon projet comme son nom l'indique aura deux fonctionnalités principales, capter la radio FM et avoir un réveil fonctionelle,de plus elle affichera l'heure et la date en temps réel grâce à un RTC sur un écran SPI, la radio pourra changer de volume et de station grâce à 2 encodeur rotatif.    
+Ce projet aura deux fonctionnalités principales :
+- **Capter la radio FM**
+- **Avoir un réveil fonctionnel**
 
-Ce projet aura pour but aussi d'être un exemple pour les nouveaux élèves de l'Inraci qui voudront apprendre et découvrir l'électronique a partir de mon projet
+De plus, il affichera l'heure et la date en temps réel grâce à un module **RTC** sur un écran **SPI**. La radio pourra changer de volume et de station grâce à **deux encodeurs rotatifs**.
+
+L'objectif du projet est également de servir d'exemple aux nouveaux élèves de l'Inraci qui souhaitent apprendre et découvrir l'électronique à travers ce projet.
 
 ## SOMMAIRE
 - [Les caractéristiques](#les-caractéristiques)
