@@ -21,3 +21,58 @@ Ce projet aura pour but aussi d'être un exemple pour les nouveaux élèves de l
   - [PCB Vue Complète](#Pcb-vue-complete)
   - [PCB Vue Sans Sérigraphie](#Pcb-vue-sans-serigraphie)
 - [Dessin 3D](#dessin-3d)
+## Caractéristiques
+**Général :**
+- Module RTC (PCF8523) 
+- Module Radio FM (RDA5807M) 
+- Écran TFT 2.8" (ILI9341) 
+- Amplificateur Audio (MAX98357A) 
+- Encodeur Rotatif (KY-040) 
+- Fusible 
+- Bouton Poussoir
+
+**Eléctrique :**
+## Antenne 
+- Impedance : 75Ω
+- Zone Dab ou Fm
+## Récepteur Radio FM
+- Sensibilité : 1.4µ - 1.8µV
+- Plage de fréquence : 50 - 115 MHz
+- Réception : Mono/Stéréo
+- Tension d'alimentation : 2.7V - 3.3V
+- Impedance : 50 Ω
+- Consommation : 20mA/h
+- Type de signal : Analogique
+## Régulateur de Tension
+- Tension d'entrée : 6.5 - 32V
+- Tension de sortie : 5V
+- Courant de sortie : 2A
+- Rendement : 94 %
+- Protection : OTP et SCP 
+- Température de fonctionement : -40°C à 70 °C
+## Amplificateur Audio
+- Puissance de sortie : 3.2W 
+- Tension d'alimentation : 2.7V - 5.5V
+- Protection : OTP et OCP
+- Fréquence PWM : ~300kHz
+## Module RTC 
+- Tension d'entrée : 3.3V ou 5V
+- Précision : +~ 2sec/Jour
+- Autonomie : 3ans avec pile CR1225
+## Encodeur rotatif
+- Tension d'alimentation : 5V
+- Courant : 10 mA
+- Cycle par tour : 30
+## Transitor MosFet
+- Tension Drain-Source : -30V
+- ID=-4.2A(VGS =-10V)
+- RDS(ON)＜55mΩ(VGS=-10V)
+- RDS(ON)＜70mΩ(VGS=-4.5V)
+- RDS(ON)＜120mΩ(VGS=-2.5V)
+- Tension de commande : 2,5V - 10V
+- Dissipation de puissance : 1,4W
+- Vgs(th) (max.) à Id : 1,3V à 250µA
+- Vgs max : +-12V
+**Mécanique :**
+- Materiaux : Planche de Bois Multiplex 
+- Dimension : L= 15Cm , l=10Cm , Epaisseur 0.8Cm
