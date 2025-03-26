@@ -82,3 +82,5 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 - Dimension : L= 15Cm , l=10Cm , Epaisseur 0.8Cm
 ## Schéma bloc
 ![Image](https://github.com/user-attachments/assets/4093da03-631c-43b5-b6fe-094922fafef0)
+## Schéma de principe 
+![Image](https://github.com/user-attachments/assets/4d5a33f2-1d60-49ca-8ec1-a10d4f81cbbe)
