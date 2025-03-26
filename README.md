@@ -80,3 +80,5 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 **Mécanique :**
 - Materiaux : Planche de Bois Multiplex 
 - Dimension : L= 15Cm , l=10Cm , Epaisseur 0.8Cm
+## Schéma bloc
+![Schematic_Schema-bloc_2025-03-26 (1).pdf](https://github.com/user-attachments/files/19472155/Schematic_Schema-bloc_2025-03-26.1.pdf)
