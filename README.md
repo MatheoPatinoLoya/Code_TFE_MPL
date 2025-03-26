@@ -77,6 +77,7 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 - Dissipation de puissance : 1,4W
 - Vgs(th) (max.) à Id : 1,3V à 250µA
 - Vgs max : +-12V
+
 **Mécanique :**
 - Materiaux : Planche de Bois Multiplex 
 - Dimension : L= 15Cm , l=10Cm , Epaisseur 0.8Cm
