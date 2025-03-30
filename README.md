@@ -86,4 +86,4 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 ## Schéma de principe 
 ![Image](https://github.com/user-attachments/assets/4d5a33f2-1d60-49ca-8ec1-a10d4f81cbbe)
 ##  Ordinogramme
-[Diagramme RADIO.drawio.pdf](https://github.com/user-attachments/files/19526992/Diagramme.RADIO.drawio.pdf)
+![Image](https://github.com/user-attachments/assets/dabdfa46-b43a-47db-81f8-e802c05e8f78)
