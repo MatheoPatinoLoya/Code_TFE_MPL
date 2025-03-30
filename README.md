@@ -87,3 +87,10 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 ![Image](https://github.com/user-attachments/assets/4d5a33f2-1d60-49ca-8ec1-a10d4f81cbbe)
 ##  Ordinogramme
 ![Image](https://github.com/user-attachments/assets/dabdfa46-b43a-47db-81f8-e802c05e8f78)
+##  PCB 
+-  PCB Vue Complète
+![Image](https://github.com/user-attachments/assets/966f4ecb-5f1b-4d91-85ef-e5b77afcab6d)
+![Image](https://github.com/user-attachments/assets/8fe2e0ab-96f2-44cb-8530-3971c6b6dd52)
+
+-  PCB Vue Sans Sérigraphie
+  ![Image](https://github.com/user-attachments/assets/47664c8e-1043-4bdc-9638-84d3fb8ab6df)
