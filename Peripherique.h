@@ -1,4 +1,4 @@
-//#include <Adafruit_ILI9341.h>
+//  #include <Adafruit_ILI9341.h>
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -22,6 +22,12 @@
 #define MAX_STATION 10500       
 #define STATION_INITIALE 9300   
 
+// #define TFT_CS 10
+// #define TFT_RST 6
+// #define TFT_DC 12
+
+// #define PWM A2
+
 
 extern RDA5807M radio;
 extern int dernierEtatCLK, dernierEtatCLK1;
@@ -29,13 +35,13 @@ extern int stationActuelle;
 extern int volume;
 
 
-void Volume(void);
-void Station(void);
-void Audio(void);
+void Volume(void);//chatgpt et reflexion de ma part 
+void Station(void);//chatgpt et reflexion de ma part 
+void Audio(void);//chatgpt et reflexion de ma part 
 ////////////////////////////////
-void afficherVolume(int vol);  
-int afficherStation(void);     
-bool initi_radio(bool mono,bool mute ) ;
-void Pin_Mode(void);
-void Lire_CLK(void);
+void afficherVolume(int vol);  //Fait part moi 
+int afficherStation(void);     // Fait part moi 
+bool initi_radio(bool mono,bool mute ) ;// chatgpt et reflexion de ma part 
+void Pin_Mode(void);// Fait part moi 
+void Lire_CLK(void);//Fait part moi
 ////////////////////////////////
