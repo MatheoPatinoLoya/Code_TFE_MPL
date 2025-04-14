@@ -1,5 +1,6 @@
-//  #include <Adafruit_ILI9341.h>
 
+#include <Adafruit_ILI9341.h>
+#include <Adafruit_GFX.h>
 #include <Arduino.h>
 #include <Wire.h>
 #include <radio.h>
@@ -15,6 +16,13 @@
 #define I2S_BCLK_PIN 1
 #define I2S_LRC_PIN 0
 #define I2S_DIN_PIN 9
+
+ #define TFT_CS 10
+ #define TFT_RST 6
+ #define TFT_DC 12
+
+extern Adafruit_ILI9341 tft;
+
 
 #define FIX_BAND RADIO_BAND_FM
 #define MAX_VOLUME 25

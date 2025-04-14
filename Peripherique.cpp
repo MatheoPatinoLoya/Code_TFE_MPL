@@ -1,6 +1,8 @@
 #include "Peripherique.h"
 
 RDA5807M radio;
+
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 int dernierEtatCLK = 0;
 int dernierEtatCLK1 = 0;
 int stationActuelle = STATION_INITIALE;
@@ -20,6 +22,15 @@ void Volume(void) {
 
     radio.setVolume(volume);
     afficherVolume(volume);
+/////////////////////////////////////////////////¨Parametre pour gere l'affichage sur l'ecran (position ,taille ,etc) 
+    tft.fillRect(0, 0, 240, 20, ILI9341_BLACK);
+    tft.setTextSize(2);
+    tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
+    tft.setCursor(10, 10);
+    tft.print("Volume :  ");
+    tft.setCursor(120, 10);
+    tft.print(volume);
+    ////////////////////////////////////////////
   }
 
   dernierEtatCLK = etatComparateur;
@@ -34,8 +45,18 @@ void Station(void) {
     }
     radio.setBandFrequency(FIX_BAND, stationActuelle);
     afficherStation();
+///////////////////////////////////////////////// parametre pour gere l'affichage sur l'ercan (position ,taille ,etc) exemple pris dans la biblioteque
+    tft.fillRect(0, 40, 240, 20, ILI9341_BLACK);
+    tft.setTextSize(2);
+    tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
+    tft.setCursor(10, 30);
+    tft.print("Station :   ");
+    tft.setCursor(120, 30);
+    tft.print(stationActuelle / 100.0, 1);
+    ////////////////////////////////////////////////
+   
   }
-  dernierEtatCLK1 = etatComparateur1;
+   dernierEtatCLK1 = etatComparateur1;
 }
 void Audio(void) {
   int16_t audioSampleLeft = (analogRead(ADC_PIN_LEFT) - 300) * 64;    // son de qualitée 300 pas 512
@@ -52,6 +73,7 @@ void afficherVolume(int vol) {
 int afficherStation(void) {
   Serial.print("Nouvelle station : ");
   Serial.println(stationActuelle / 100.0, 1);
+
   return stationActuelle;
 }
 void Initi_Radio(void) {
