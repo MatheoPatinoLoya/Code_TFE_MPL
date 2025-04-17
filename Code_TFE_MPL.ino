@@ -3,21 +3,19 @@
 
 void setup() {
   Serial.begin(9600);
+
   Pin_Mode();
   Initi_Radio();
   Initi_I2S();
   Lire_CLK();
-
-  tft.begin();
-  tft.setRotation(1); 
-  tft.fillScreen(ILI9341_BLACK);  
-
- 
+  Initi_SPI();
+  Initi_RTC();
 }
 
 void loop() {
   Volume();
   Station();
   Audio();
-
+    // Date_Heure_Jour();
+ 
 }
