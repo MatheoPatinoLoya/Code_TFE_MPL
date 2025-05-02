@@ -92,9 +92,14 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 -  PCB Vue Complète
 ![Image](https://github.com/user-attachments/assets/966f4ecb-5f1b-4d91-85ef-e5b77afcab6d)
 ![Image](https://github.com/user-attachments/assets/8fe2e0ab-96f2-44cb-8530-3971c6b6dd52)
+#
+![Image](https://github.com/user-attachments/assets/124112c3-9606-4741-af46-5d660db43080)
+![Image](https://github.com/user-attachments/assets/530f6ada-a466-41ef-aa7d-c0120402b4c3)
 
 -  PCB Vue Sans Sérigraphie
   ![Image](https://github.com/user-attachments/assets/47664c8e-1043-4bdc-9638-84d3fb8ab6df)
+#
+![Image](https://github.com/user-attachments/assets/b3d682b8-e54c-4403-912c-ab28a95e7250)
 
 ##  Dessin 3D
 ![Image](https://github.com/user-attachments/assets/0c14af67-0891-4389-8921-995fe048e285)
