@@ -85,7 +85,7 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 ## Schéma bloc
 ![Image](https://github.com/user-attachments/assets/4093da03-631c-43b5-b6fe-094922fafef0)
 ## Schéma de principe 
-![Image](https://github.com/user-attachments/assets/4d5a33f2-1d60-49ca-8ec1-a10d4f81cbbe)
+![Image](https://github.com/user-attachments/assets/4c6f0787-ac14-48d8-9e26-475951140f7d)
 ##  Ordinogramme
 ![Image](https://github.com/user-attachments/assets/04767bd1-071b-4c10-8361-5480d3212379)
 ##  PCB 
