@@ -9,10 +9,15 @@
 
 void setup() {
   Serial.begin(9600);
-
-  void Initi_Radio(void);
-  void Pin_Mode(void);
+   Initi_Ampli();
+   Initi_Radio();
+   Pin_Mode();
+   Lecture_CLK();
 }
 
 void loop() {
+   Station();
+   Volume();
+   Audio();
+
 }

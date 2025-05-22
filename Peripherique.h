@@ -27,12 +27,15 @@
 #define TFT_DC 12
 
 #define BP A5
-
+#define BP1 5
 
 #define BANDE_RADIO  RADIO_BAND_FM //variable pour changer les parametre non fixe
-#define FREQUENCE_RADIO 9000
-#define VOLUME_RADIO 12
 
 void Initi_Radio(void);
 void Station(void);
 void Pin_Mode(void);
+void Lecture_CLK(void);
+void Volume(void);
+
+void Audio (void);
+void Initi_Ampli(void);
