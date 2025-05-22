@@ -9,18 +9,10 @@
 
 void setup() {
   Serial.begin(9600);
-  pinMode(BP, INPUT_PULLUP);
-  Pin_Mode();
-  Initi_Radio();
-  Initi_I2S();
-  Lire_CLK();
-  Initi_SPI();
-  Initi_RTC();
+
+  void Initi_Radio(void);
+  void Pin_Mode(void);
 }
 
 void loop() {
-  Volume();
-  Station();
-  Audio();
-  Date_Heure_Jour();
 }

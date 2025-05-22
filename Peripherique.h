@@ -8,7 +8,7 @@
 #include <I2S.h>
 #include "RTClib.h"
 //****************DEFINITION DES CONSTANTE***************************
-////////////// MOi
+
 #define CLK 13
 #define DT 11
 
@@ -26,24 +26,13 @@
 #define TFT_RST 6
 #define TFT_DC 12
 
-#define FIX_BAND RADIO_BAND_FM
-#define MAX_VOLUME 15
-#define MIN_STATION 8800
-#define MAX_STATION 10800
-#define STATION_INITIALE 9300
-
 #define BP A5
-///// moi
-void Volume(void);   //chatgpt et reflexion de ma part
-void Station(void);  //chatgpt et reflexion de ma part
-void Audio(void);    //chatgpt et reflexion de ma part
-////////////////////////////////
-//     // Fait part moi
-void Initi_Radio(void);        // chatgpt et reflexion de ma part
-void Pin_Mode(void);           // Fait part moi
-void Lire_CLK(void);           //Fait part moi
-////////////////////////////////
-void Initi_I2S(void);////// librairie 
-void Initi_SPI(void); //////librairie
-void Initi_RTC(void); /////// librairie
-void Date_Heure_Jour(void); ///// 1000% chat gpt
+
+
+#define BANDE_RADIO  RADIO_BAND_FM //variable pour changer les parametre non fixe
+#define FREQUENCE_RADIO 9000
+#define VOLUME_RADIO 12
+
+void Initi_Radio(void);
+void Station(void);
+void Pin_Mode(void);
