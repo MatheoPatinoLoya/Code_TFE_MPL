@@ -8,6 +8,7 @@
 #include <I2S.h>
 #include "RTClib.h"
 //****************DEFINITION DES CONSTANTE***************************
+////////////// MOi
 #define CLK 13
 #define DT 11
 
@@ -32,7 +33,7 @@
 #define STATION_INITIALE 9300
 
 #define BP A5
-
+///// moi
 void Volume(void);   //chatgpt et reflexion de ma part
 void Station(void);  //chatgpt et reflexion de ma part
 void Audio(void);    //chatgpt et reflexion de ma part
@@ -42,7 +43,7 @@ void Initi_Radio(void);        // chatgpt et reflexion de ma part
 void Pin_Mode(void);           // Fait part moi
 void Lire_CLK(void);           //Fait part moi
 ////////////////////////////////
-void Initi_I2S(void);
-void Initi_SPI(void);
-void Initi_RTC(void);
-void Date_Heure_Jour(void);
+void Initi_I2S(void);////// librairie 
+void Initi_SPI(void); //////librairie
+void Initi_RTC(void); /////// librairie
+void Date_Heure_Jour(void); ///// 1000% chat gpt
