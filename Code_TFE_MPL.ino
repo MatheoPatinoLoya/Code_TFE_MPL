@@ -13,11 +13,13 @@ void setup() {
    Initi_Radio();
    Pin_Mode();
    Lecture_CLK();
+   Initi_Ecran();
 }
 
 void loop() {
    Station();
    Volume();
    Audio();
+  BP_Blanc();
 
 }

@@ -15,8 +15,8 @@
 #define CLK1 A3
 #define DT1 A4
 
-#define ADC_PIN_LEFT A0
-#define ADC_PIN_RIGHT A1
+#define GAUCHE A0
+#define DROIT A1
 
 #define I2S_BCLK_PIN 1
 #define I2S_LRC_PIN 0
@@ -26,10 +26,10 @@
 #define TFT_RST 6
 #define TFT_DC 12
 
-#define BP A5
+#define BP A5//Blanc
 #define BP1 5
 
-#define BANDE_RADIO  RADIO_BAND_FM //variable pour changer les parametre non fixe
+#define BANDE_RADIO  RADIO_BAND_FM 
 
 void Initi_Radio(void);
 void Station(void);
@@ -39,3 +39,5 @@ void Volume(void);
 
 void Audio (void);
 void Initi_Ampli(void);
+void Initi_Ecran(void);
+void BP_Blanc(void);
