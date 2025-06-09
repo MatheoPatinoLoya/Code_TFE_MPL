@@ -1,6 +1,7 @@
 
 # RADIO-REVEIL
 <img alt="Static Badge" src="https://img.shields.io/badge/French-8A2BE2"> <img alt="Static Badge" src="https://img.shields.io/badge/Spanish-8A2BE2"> <img alt="Static Badge" src="https://img.shields.io/badge/-%20?logo=easyeda&color=blue">
+![Image](https://github.com/user-attachments/assets/1f1e02f8-997e-4d4a-bef8-016fc4e9d9b0)
 
 INTRODUCTION
 
