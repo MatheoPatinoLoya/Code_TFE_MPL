@@ -83,7 +83,7 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 - Materiaux : Planche de Bois Multiplex 
 - Dimension : L= 15Cm , l=10Cm , Epaisseur 0.8Cm
 ## Schéma bloc
-![Image](https://github.com/user-attachments/assets/4093da03-631c-43b5-b6fe-094922fafef0)
+![Image](https://github.com/user-attachments/assets/a9f58896-cb3d-4906-8dc8-51dca3e848b4)
 ## Schéma de principe 
 ![Image](https://github.com/user-attachments/assets/4c6f0787-ac14-48d8-9e26-475951140f7d)
 ##  Ordinogramme
