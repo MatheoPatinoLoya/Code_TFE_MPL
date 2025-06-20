@@ -41,7 +41,7 @@ L'objectif du projet est également de servir d'exemple aux nouveaux élèves de
 
 **Eléctrique :**
 ## Antenne 
-- Impedance : 75Ω
+- Impedance : 50Ω
 - Zone Dab ou Fm
 ## Récepteur Radio FM
 - Sensibilité : 1.4µ - 1.8µV
